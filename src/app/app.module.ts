@@ -13,14 +13,12 @@ import { CreateOrderComponent } from './create-order/create-order.component';
 
 import { FHService } from './service/fh.service';
 import { ChartComponent } from './components/chart/chart.component';
-import { SearchCityComponent } from './components/search-city/search-city.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateOrderComponent,
-    ChartComponent,
-    SearchCityComponent
+    ChartComponent
   ],
   imports: [
     NgbModule.forRoot(),
