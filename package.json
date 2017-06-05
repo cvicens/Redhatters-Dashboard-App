@@ -23,6 +23,8 @@
     "@ng-bootstrap/ng-bootstrap": "^1.0.0-alpha.26",
     "chart.js": "^2.6.0",
     "core-js": "^2.4.1",
+    "corser": "^2.0.1",
+    "express": "^4.15.3",
     "fh-js-sdk": "^2.18.4",
     "ng2-charts": "^1.6.0",
     "rxjs": "^5.1.0",
