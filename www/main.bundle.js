@@ -179,11 +179,6 @@ var ChartComponent = (function () {
         };
         this.barChartType = 'bar';
         this.barChartLegend = true;
-        this.barChartLabels = ['Question 1', 'Question 2', 'Question 3'];
-        this.barChartData = [
-            { data: [5, 2, 3], label: 'CORRECT' },
-            { data: [4, 1, 0], label: 'WRONG' }
-        ];
         this.search = function (text$) {
             return text$
                 .debounceTime(200)
@@ -273,6 +268,16 @@ var ChartComponent = (function () {
                 }, {});
                 resultsByQuestion.push(resultByQuestion);
             });
+            console.log(resultsByQuestion);
+            var totals = resultsByQuestion.map(function (result) {
+                var data = Object.keys(result).map(function (key, i, array) {
+                    return result[key];
+                }).reduce(function (accumulator, elem) {
+                    return accumulator + elem;
+                }, 0);
+                return data;
+            });
+            console.log('totals', totals);
             var resultsByUniqueResult = [];
             uniqueResults.forEach(function (currentUniqueResult, index) {
                 var _resultsByUniqueResult = _this.results
@@ -288,7 +293,7 @@ var ChartComponent = (function () {
             console.log(resultsByUniqueResult);
             _this.barChartData = resultsByUniqueResult.map(function (result) {
                 var data = Object.keys(result.data).map(function (key, i, array) {
-                    return result.data[key];
+                    return result.data[key] / totals[i] * 100;
                 });
                 return { label: result.label, data: data };
             });
@@ -907,7 +912,7 @@ module.exports = "<div class=\"container\">\n<div class=\"page-header\">\n  <h1>
 /***/ 397:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <!--<label for=\"typeahead-config\">City</label>-->\n        <input placeholder=\"City\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"city\" [ngbTypeahead]=\"search\" (ngModelChange)=\"newCityValue($event)\" />\n      </div>\n    </div>\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input  class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                name=\"dp\" [(ngModel)]=\"date\" ngbDatepicker #d=\"ngbDatepicker\">\n        <div class=\"input-group-addon\" (click)=\"city ? d.toggle() : ''\">\n          <img src=\"assets/images/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\"/>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col\">\n      <button [disabled]=\"!searchEventsEnabled()\" class=\"btn btn-primary\" type=\"submit\" (click)=\"searchEvents()\" >Search</button>\n    </div>\n  </div>\n  \n  <div class=\"row\">\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-12\">\n      <div style=\"display: block\">\n        <canvas baseChart\n                [datasets]=\"barChartData\"\n                [labels]=\"barChartLabels\"\n                [options]=\"barChartOptions\"\n                [legend]=\"barChartLegend\"\n                [chartType]=\"barChartType\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n      </div>\n      <button (click)=\"randomize()\">Update</button>\n    </div>\n  </div>\n\n  \n</div>\n\n"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <!--<label for=\"typeahead-config\">City</label>-->\n        <input placeholder=\"City\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"city\" [ngbTypeahead]=\"search\" (ngModelChange)=\"newCityValue($event)\" />\n      </div>\n    </div>\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input  class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                name=\"dp\" [(ngModel)]=\"date\" ngbDatepicker #d=\"ngbDatepicker\">\n        <div class=\"input-group-addon\" (click)=\"city ? d.toggle() : ''\">\n          <img src=\"assets/images/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\"/>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col\">\n      <button [disabled]=\"!searchEventsEnabled()\" class=\"btn btn-primary\" type=\"submit\" (click)=\"searchEvents()\" >Search</button>\n    </div>\n  </div>\n  \n  <div class=\"row\">\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-12\" *ngIf=\"barChartData && barChartLabels\">\n      <div style=\"display: block\">\n        <canvas baseChart\n                [datasets]=\"barChartData\"\n                [labels]=\"barChartLabels\"\n                [options]=\"barChartOptions\"\n                [legend]=\"barChartLegend\"\n                [chartType]=\"barChartType\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n      </div>\n      <!--<button (click)=\"randomize()\">Update</button>-->\n    </div>\n  </div>\n\n  \n</div>\n\n"
 
 /***/ }),
 

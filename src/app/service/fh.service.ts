@@ -125,7 +125,7 @@ export class FHService {
 
   searchAnswersByEventIdAndQuizId = (eventId: string, quizId: string) => {
     return new Promise<any>(function(resolve, reject) {
-      if (!eventId || eventId.length <= 0 || 
+      if (!eventId || eventId.length <= 0 ||
           !quizId || quizId.length <= 0) {
         reject({err: 'Not enough or good parameters eventId: ' + eventId + ' quizId: ' + quizId});
       }

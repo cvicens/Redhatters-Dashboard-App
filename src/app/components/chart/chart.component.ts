@@ -41,11 +41,14 @@ export class ChartComponent implements OnInit {
   public barChartType: string = 'bar';
   public barChartLegend: boolean = true;
 
-  public barChartLabels: string[] = ['Question 1', 'Question 2', 'Question 3'];
+  /*public barChartLabels: string[] = ['Question 1', 'Question 2', 'Question 3'];
   public barChartData: any[] = [
     {data: [5, 2, 3], label: 'CORRECT'},
     {data: [4, 1, 0], label: 'WRONG'}
-  ];
+  ];*/
+
+  public barChartLabels: string[];
+  public barChartData: any[];
 
   // constructor
   constructor(private fhService: FHService, config: NgbTypeaheadConfig) {
@@ -165,6 +168,16 @@ export class ChartComponent implements OnInit {
 
       resultsByQuestion.push(resultByQuestion);
     });
+    console.log (resultsByQuestion);
+    var totals = resultsByQuestion.map((result) => {
+      var data = Object.keys(result).map((key, i, array) => {
+        return result[key];
+      }).reduce((accumulator, elem) => {
+        return accumulator + elem;
+      }, 0);
+      return data;
+    });
+    console.log('totals', totals);
 
     var resultsByUniqueResult = [];
     uniqueResults.forEach((currentUniqueResult, index) => {
@@ -185,7 +198,7 @@ export class ChartComponent implements OnInit {
 
     this.barChartData = resultsByUniqueResult.map((result) => {
       var data = Object.keys(result.data).map((key, i, array) => {
-        return result.data[key];
+        return result.data[key]/totals[i] * 100;
       });
 
       return {label: result.label, data: data};
