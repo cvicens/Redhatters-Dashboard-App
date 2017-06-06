@@ -9,6 +9,18 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { FHService } from '../../service/fh.service';
 
 const cities = [ 'Madrid', 'Lisbon', 'Paris', 'Munich'];
+const departments = [ 'Sales', 'Presales', 'Marketing', 'HR'];
+const depAbrv = {
+  Sales: 'S',
+  Presales: 'PS',
+  Marketing: 'MK',
+  HR: 'HR'
+};
+
+const resultAbrv = {
+  CORRECT: 'OK',
+  WRONG: 'KO'
+};
 
 @Component({
   selector: 'app-chart',
@@ -22,6 +34,9 @@ export class ChartComponent implements OnInit {
   // City
   public city: string;
 
+  // Department
+  public department: string;
+
   // Date
   public date: any;
 
@@ -30,25 +45,56 @@ export class ChartComponent implements OnInit {
   private events = [];
 
   // Quiz results
-  private results = [];
+  private answers = [];
+
+  // Top
+  private topUsers;
+  private topDepartments;
 
   // Barchart
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
-    responsive: true
+    responsive: true,
+    scales: {
+      xAxes: [{
+        stacked: true
+      }],
+      yAxes: [{
+        stacked: true,
+        ticks: { beginAtZero: true }
+      }]
+    }
   };
 
   public barChartType: string = 'bar';
   public barChartLegend: boolean = true;
 
-  /*public barChartLabels: string[] = ['Question 1', 'Question 2', 'Question 3'];
+  public barChartLabels: string[] = ['Question 1', 'Question 2', 'Question 3', 'Question 4', 'Question 5'];
   public barChartData: any[] = [
-    {data: [5, 2, 3], label: 'CORRECT'},
-    {data: [4, 1, 0], label: 'WRONG'}
-  ];*/
+    {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-SALES'},
+    {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-PRESALES'},
+    {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-MARKETING'},
+    {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-HR'},
 
-  public barChartLabels: string[];
-  public barChartData: any[];
+    {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-SALES'},
+    {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-PRESALES'},
+    {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-MARKETING'},
+    {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-HR'}
+  ];
+  public barChartColors: any[] = [
+     { backgroundColor: 'rgba(196, 30, 61,0.6)', borderColor: 'rgba(196, 30, 61,1)' },
+     { backgroundColor: 'rgba(164, 14, 76,0.6)', borderColor: 'rgba(164, 14, 76,1)' },
+     { backgroundColor: 'rgba(137,  2, 62,0.6)', borderColor: 'rgba(137,  2, 62,1)' },
+     { backgroundColor: 'rgba(234, 99,140,0.6)', borderColor: 'rgba(234, 99,140,1)' },
+
+     { backgroundColor: 'rgba( 50,151, 73,0.6)', borderColor: 'rgba( 50,151, 73,1)' },
+     { backgroundColor: 'rgba(161,195, 48,0.6)', borderColor: 'rgba(161,195, 48,1)' },
+     { backgroundColor: 'rgba(202,213,147,0.6)', borderColor: 'rgba(202,213,147,1)' },
+     { backgroundColor: 'rgba( 19,117, 71,0.6)', borderColor: 'rgba( 19,117, 71,1)' },
+  ];
+
+  //public barChartLabels: string[];
+  //public barChartData: any[];
 
   // constructor
   constructor(private fhService: FHService, config: NgbTypeaheadConfig) {
@@ -56,12 +102,19 @@ export class ChartComponent implements OnInit {
     config.showHint = true;
   }
 
-  search = (text$: Observable<string>) =>
+  searchCity = (text$: Observable<string>) =>
     text$
       .debounceTime(200)
       .distinctUntilChanged()
       .map(term => term.length < 2 ? []
         : cities.filter(v => v.toLowerCase().startsWith(term.toLocaleLowerCase())).splice(0, 10));
+
+  searchDepartment = (text$: Observable<string>) =>
+    text$
+      .debounceTime(200)
+      .distinctUntilChanged()
+      .map(term => term.length < 2 ? []
+        : departments.filter(v => v.toLowerCase().startsWith(term.toLocaleLowerCase())).splice(0, 10));
 
   ngOnInit() {
   }
@@ -119,9 +172,9 @@ export class ChartComponent implements OnInit {
     if (this.city && this.date) {
       this.fhService.searchAnswersByEventIdAndQuizId(eventId, quizId)
       .then((results) => {
-        this.results = results;
+        this.answers = results;
 
-        this.generateChartData (this.results);
+        this.generateChartDataAllDepartments (this.answers);
       })
       .catch((err) => {
         console.error('Error in searchAnswersByEventIdAndQuizId', err);
@@ -129,47 +182,123 @@ export class ChartComponent implements OnInit {
     }
   }
 
-  generateChartData = (results: any[]) => {
+  getUniqueQuestionsFromReceivedAnswers = () : any[] => {
+    return this.answers
+      .map(function(elem, i, array) { // Run through the results and get all the questions
+        return elem.question;
+      })
+      .filter(function(elem, i, array) { // Filter out duplicates
+        return array.indexOf(elem) === i;
+      }).sort(); // We need to sort.. otherwise result will fall in a different question!
+  }
+
+  getUniqueResultsFromReceivedAnswers = () : any[] => {
+    return this.answers
+      .map(function(elem, i, array) { // Run through the result of each answer to a question
+        return elem.result;
+      })
+      .filter(function(elem, i, array) { // Filter out duplicates
+        return array.indexOf(elem) === i;
+      });
+  }
+
+  getLabel = (department, result) : string => {
+    return depAbrv[department] + '-' + resultAbrv[result];
+  }
+
+  getTopUsers =  () : any => {
+    var topUsersObject = this.answers
+      .filter(function(elem, i, array) { // Filter out duplicates
+        return elem.result === 'CORRECT';
+      })
+      .map(function(elem, i, array) { // Run through the result of each answer to a question
+        return { username: elem.username, question: elem.question};
+      })
+      .reduce((accumulator, elem) => { // Sum results per result (CORRECT, WRONG) => CORRECT answers and WRONG answers per question
+        accumulator[elem.username] = (accumulator[elem.username] || 0) + 1;
+        return accumulator;
+      }, {});
+
+    return Object.keys(topUsersObject).map((key, i, array) => {
+        return {username: key, score: topUsersObject[key]};
+      })
+      .sort((a, b) => {
+        return b.score - a.score;
+      })
+      .filter(function(elem, i) { // Filter out under index 5
+        return i < 5;
+      });
+  }
+
+  getTopDepartments =  () : any => {
+    var topDeparmentsObject = this.answers
+      .filter(function(elem, i, array) { // Filter out duplicates
+        return elem.result === 'CORRECT';
+      })
+      .map(function(elem, i, array) { // Run through the result of each answer to a question
+        return { department: elem.department, question: elem.question};
+      })
+      .reduce((accumulator, elem) => { // Sum results per result (CORRECT, WRONG) => CORRECT answers and WRONG answers per question
+        accumulator[elem.department] = (accumulator[elem.department] || 0) + 1;
+        return accumulator;
+      }, {});
+
+    return Object.keys(topDeparmentsObject).map((key, i, array) => {
+        return {name: key, score: topDeparmentsObject[key]};
+      })
+      .sort((a, b) => {
+        return b.score - a.score;
+      })
+      .filter(function(elem, i) { // Filter out under index 5
+        return i < 5;
+      });
+  }
+
+  generateChartDataAllDepartments = (results: any[]) => {
     console.log(this.barChartLabels);
     console.log(this.barChartData);
 
-    // Labels come from the questions... so far just the number of questions
-    var uniqueResults = this.results
-      .map(function(elem, i, array) {
-        return elem.result;
-      })
-      .filter(function(elem, i, array) {
-        return array.indexOf(elem) === i;
-      });
-    
-    var questions = this.results
-      .map(function(elem, i, array) {
-        return elem.question;
-      })
-      .filter(function(elem, i, array) {
-        return array.indexOf(elem) === i;
-      });
+    this.topUsers = this.getTopUsers();
+    console.log('topUsers', this.topUsers);
 
-    this.barChartLabels = questions.map ((elem) => 'Question ' + (elem + 1));
+    this.topDepartments = this.getTopDepartments();
+    console.log('topDepartments', this.topDepartments);
 
-    console.log(this.barChartLabels);
+    // Labels X-axis values come from the questions... so far just the number of questions
+    const uniqueQuestions = this.getUniqueQuestionsFromReceivedAnswers();
+    console.log('uniqueQuestions', uniqueQuestions);
 
-    var resultsByQuestion = [];
-    questions.forEach((currentQuestion, index) => {
+    // PROBLEMS GENERATING LABELS DYNAMICALLY
+    // Labels are the literal 'Question ' [plus the question (which is a zero index of the array of questions in the quiz) + 1]
+    this.barChartLabels = uniqueQuestions.map ((elem) => 'Question ' + (elem + 1));
+    //console.log(this.barChartLabels);
 
-      var resultByQuestion = this.results
+    // Series of data are based on the result (CORRECT, WRONG, ...)
+    var uniqueResults = this.getUniqueResultsFromReceivedAnswers();
+    console.log('uniqueResults', uniqueResults);
+
+    // For each question (X-axis value)
+    var answersByQuestions = [];
+    uniqueQuestions.forEach((currentQuestion, index) => {
+      // Let's accumulate values per result (CORRECT, WRONG)
+      var resultsByCurrentQuestion = this.answers
       .filter((elem, i, array) => {
+        return this.department ? elem.department.toLowerCase() === this.department.toLowerCase() : true;
+      })
+      .filter((elem, i, array) => { // Only results for current question
         return elem.question === currentQuestion;
       })
-      .reduce((accumulator, elem) => {
+      .reduce((accumulator, elem) => { // Sum results per result (CORRECT, WRONG) => CORRECT answers and WRONG answers per question
         accumulator[elem.result] = (accumulator[elem.result] || 0) + 1;
         return accumulator;
       }, {});
 
-      resultsByQuestion.push(resultByQuestion);
+      answersByQuestions.push(resultsByCurrentQuestion);
     });
-    console.log (resultsByQuestion);
-    var totals = resultsByQuestion.map((result) => {
+    console.log (answersByQuestions);
+
+    // Totals
+    var totals = answersByQuestions.map((result) => {
       var data = Object.keys(result).map((key, i, array) => {
         return result[key];
       }).reduce((accumulator, elem) => {
@@ -179,34 +308,39 @@ export class ChartComponent implements OnInit {
     });
     console.log('totals', totals);
 
-    var resultsByUniqueResult = [];
+    // For each unique result (CORRECT, WRONG)
+    var _departments = this.department ? [this.department] : departments;
+    var answersByUniqueResult = [];
     uniqueResults.forEach((currentUniqueResult, index) => {
+      _departments.forEach((currentDepartment) => {
+        // Les's accumulate answers per question for current result (CORRECT, WRONG)
+        let answersByCurrentUniqueResult = this.answers
+        .filter((elem, i, array) => {
+          return elem.department.toLowerCase() === currentDepartment.toLowerCase(); // Filter by department (SALES, ...)
+        })
+        .filter((elem, i, array) => { // Filter out other results but the current unique result (CORRECT, WRONG, ...)
+          return elem.result === currentUniqueResult;
+        })
+        .reduce((accumulator, elem) => { // Accumulate answers per question for current unique result Q1=>2xCORRECT, Q2=>1xCORRECT, etc.
+          accumulator.data[elem.question] = (accumulator.data[elem.question] || 0) + 1;
+          return accumulator;
+        }, {stack: currentUniqueResult, label: this.getLabel(currentDepartment, currentUniqueResult), data: {}});
 
-      var _resultsByUniqueResult = this.results
-      .filter((elem, i, array) => {
-        return elem.result === currentUniqueResult;
-      })
-      .reduce((accumulator, elem) => {
-        accumulator.data[elem.question] = (accumulator.data[elem.question] || 0) + 1;
-        return accumulator;
-      }, {label: currentUniqueResult, data: {}});
-
-      resultsByUniqueResult.push(_resultsByUniqueResult);
-    });
-
-    console.log(resultsByUniqueResult);
-
-    this.barChartData = resultsByUniqueResult.map((result) => {
-      var data = Object.keys(result.data).map((key, i, array) => {
-        return result.data[key]/totals[i] * 100;
+        answersByUniqueResult.push(answersByCurrentUniqueResult);
       });
+    });
+    console.log('Antes de barChartData', answersByUniqueResult);
 
-      return {label: result.label, data: data};
+    // barChartData => array of series, in our case, 1 serie per unique result => label CORRECT, label WRONG
+    this.barChartData = answersByUniqueResult.map((result) => { // Per unique result
+      const data = uniqueQuestions.map((currentQuestion, index) => {
+        //return result.data[currentQuestion] / totals[index] * 100 || 0;
+        return result.data[currentQuestion] || 0;
+      });
+      return {stack: result.stack, label: result.label, data: data};
     });
 
-
-    console.log(this.barChartData);
-    
+    console.log('barChartData', this.barChartData);
 
   }
 

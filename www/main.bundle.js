@@ -164,27 +164,77 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var cities = ['Madrid', 'Lisbon', 'Paris', 'Munich'];
+var departments = ['Sales', 'Presales', 'Marketing', 'HR'];
+var depAbrv = {
+    Sales: 'S',
+    Presales: 'PS',
+    Marketing: 'MK',
+    HR: 'HR'
+};
+var resultAbrv = {
+    CORRECT: 'OK',
+    WRONG: 'KO'
+};
 var ChartComponent = (function () {
+    //public barChartLabels: string[];
+    //public barChartData: any[];
     // constructor
     function ChartComponent(fhService, config) {
         var _this = this;
         this.fhService = fhService;
         this.events = [];
         // Quiz results
-        this.results = [];
+        this.answers = [];
         // Barchart
         this.barChartOptions = {
             scaleShowVerticalLines: false,
-            responsive: true
+            responsive: true,
+            scales: {
+                xAxes: [{
+                        stacked: true
+                    }],
+                yAxes: [{
+                        stacked: true,
+                        ticks: { beginAtZero: true }
+                    }]
+            }
         };
         this.barChartType = 'bar';
         this.barChartLegend = true;
-        this.search = function (text$) {
+        this.barChartLabels = ['Question 1', 'Question 2', 'Question 3', 'Question 4', 'Question 5'];
+        this.barChartData = [
+            { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-SALES' },
+            { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-PRESALES' },
+            { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-MARKETING' },
+            { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-HR' },
+            { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-SALES' },
+            { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-PRESALES' },
+            { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-MARKETING' },
+            { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-HR' }
+        ];
+        this.barChartColors = [
+            { backgroundColor: 'rgba(196, 30, 61,0.6)', borderColor: 'rgba(196, 30, 61,1)' },
+            { backgroundColor: 'rgba(164, 14, 76,0.6)', borderColor: 'rgba(164, 14, 76,1)' },
+            { backgroundColor: 'rgba(137,  2, 62,0.6)', borderColor: 'rgba(137,  2, 62,1)' },
+            { backgroundColor: 'rgba(234, 99,140,0.6)', borderColor: 'rgba(234, 99,140,1)' },
+            { backgroundColor: 'rgba( 50,151, 73,0.6)', borderColor: 'rgba( 50,151, 73,1)' },
+            { backgroundColor: 'rgba(161,195, 48,0.6)', borderColor: 'rgba(161,195, 48,1)' },
+            { backgroundColor: 'rgba(202,213,147,0.6)', borderColor: 'rgba(202,213,147,1)' },
+            { backgroundColor: 'rgba( 19,117, 71,0.6)', borderColor: 'rgba( 19,117, 71,1)' },
+        ];
+        this.searchCity = function (text$) {
             return text$
                 .debounceTime(200)
                 .distinctUntilChanged()
                 .map(function (term) { return term.length < 2 ? []
                 : cities.filter(function (v) { return v.toLowerCase().startsWith(term.toLocaleLowerCase()); }).splice(0, 10); });
+        };
+        this.searchDepartment = function (text$) {
+            return text$
+                .debounceTime(200)
+                .distinctUntilChanged()
+                .map(function (term) { return term.length < 2 ? []
+                : departments.filter(function (v) { return v.toLowerCase().startsWith(term.toLocaleLowerCase()); }).splice(0, 10); });
         };
         this.newCityValue = function ($event) {
             console.log('newCityValue', $event);
@@ -228,37 +278,104 @@ var ChartComponent = (function () {
             if (_this.city && _this.date) {
                 _this.fhService.searchAnswersByEventIdAndQuizId(eventId, quizId)
                     .then(function (results) {
-                    _this.results = results;
-                    _this.generateChartData(_this.results);
+                    _this.answers = results;
+                    _this.generateChartDataAllDepartments(_this.answers);
                 })
                     .catch(function (err) {
                     console.error('Error in searchAnswersByEventIdAndQuizId', err);
                 });
             }
         };
-        this.generateChartData = function (results) {
-            console.log(_this.barChartLabels);
-            console.log(_this.barChartData);
-            // Labels come from the questions... so far just the number of questions
-            var uniqueResults = _this.results
+        this.getUniqueQuestionsFromReceivedAnswers = function () {
+            return _this.answers
+                .map(function (elem, i, array) {
+                return elem.question;
+            })
+                .filter(function (elem, i, array) {
+                return array.indexOf(elem) === i;
+            }).sort(); // We need to sort.. otherwise result will fall in a different question!
+        };
+        this.getUniqueResultsFromReceivedAnswers = function () {
+            return _this.answers
                 .map(function (elem, i, array) {
                 return elem.result;
             })
                 .filter(function (elem, i, array) {
                 return array.indexOf(elem) === i;
             });
-            var questions = _this.results
-                .map(function (elem, i, array) {
-                return elem.question;
-            })
+        };
+        this.getLabel = function (department, result) {
+            return depAbrv[department] + '-' + resultAbrv[result];
+        };
+        this.getTopUsers = function () {
+            var topUsersObject = _this.answers
                 .filter(function (elem, i, array) {
-                return array.indexOf(elem) === i;
+                return elem.result === 'CORRECT';
+            })
+                .map(function (elem, i, array) {
+                return { username: elem.username, question: elem.question };
+            })
+                .reduce(function (accumulator, elem) {
+                accumulator[elem.username] = (accumulator[elem.username] || 0) + 1;
+                return accumulator;
+            }, {});
+            return Object.keys(topUsersObject).map(function (key, i, array) {
+                return { username: key, score: topUsersObject[key] };
+            })
+                .sort(function (a, b) {
+                return b.score - a.score;
+            })
+                .filter(function (elem, i) {
+                return i < 5;
             });
-            _this.barChartLabels = questions.map(function (elem) { return 'Question ' + (elem + 1); });
+        };
+        this.getTopDepartments = function () {
+            var topDeparmentsObject = _this.answers
+                .filter(function (elem, i, array) {
+                return elem.result === 'CORRECT';
+            })
+                .map(function (elem, i, array) {
+                return { department: elem.department, question: elem.question };
+            })
+                .reduce(function (accumulator, elem) {
+                accumulator[elem.department] = (accumulator[elem.department] || 0) + 1;
+                return accumulator;
+            }, {});
+            return Object.keys(topDeparmentsObject).map(function (key, i, array) {
+                return { name: key, score: topDeparmentsObject[key] };
+            })
+                .sort(function (a, b) {
+                return b.score - a.score;
+            })
+                .filter(function (elem, i) {
+                return i < 5;
+            });
+        };
+        this.generateChartDataAllDepartments = function (results) {
             console.log(_this.barChartLabels);
-            var resultsByQuestion = [];
-            questions.forEach(function (currentQuestion, index) {
-                var resultByQuestion = _this.results
+            console.log(_this.barChartData);
+            _this.topUsers = _this.getTopUsers();
+            console.log('topUsers', _this.topUsers);
+            _this.topDepartments = _this.getTopDepartments();
+            console.log('topDepartments', _this.topDepartments);
+            // Labels X-axis values come from the questions... so far just the number of questions
+            var uniqueQuestions = _this.getUniqueQuestionsFromReceivedAnswers();
+            console.log('uniqueQuestions', uniqueQuestions);
+            // PROBLEMS GENERATING LABELS DYNAMICALLY
+            // Labels are the literal 'Question ' [plus the question (which is a zero index of the array of questions in the quiz) + 1]
+            _this.barChartLabels = uniqueQuestions.map(function (elem) { return 'Question ' + (elem + 1); });
+            //console.log(this.barChartLabels);
+            // Series of data are based on the result (CORRECT, WRONG, ...)
+            var uniqueResults = _this.getUniqueResultsFromReceivedAnswers();
+            console.log('uniqueResults', uniqueResults);
+            // For each question (X-axis value)
+            var answersByQuestions = [];
+            uniqueQuestions.forEach(function (currentQuestion, index) {
+                // Let's accumulate values per result (CORRECT, WRONG)
+                var resultsByCurrentQuestion = _this.answers
+                    .filter(function (elem, i, array) {
+                    return _this.department ? elem.department.toLowerCase() === _this.department.toLowerCase() : true;
+                })
                     .filter(function (elem, i, array) {
                     return elem.question === currentQuestion;
                 })
@@ -266,10 +383,11 @@ var ChartComponent = (function () {
                     accumulator[elem.result] = (accumulator[elem.result] || 0) + 1;
                     return accumulator;
                 }, {});
-                resultsByQuestion.push(resultByQuestion);
+                answersByQuestions.push(resultsByCurrentQuestion);
             });
-            console.log(resultsByQuestion);
-            var totals = resultsByQuestion.map(function (result) {
+            console.log(answersByQuestions);
+            // Totals
+            var totals = answersByQuestions.map(function (result) {
                 var data = Object.keys(result).map(function (key, i, array) {
                     return result[key];
                 }).reduce(function (accumulator, elem) {
@@ -278,26 +396,36 @@ var ChartComponent = (function () {
                 return data;
             });
             console.log('totals', totals);
-            var resultsByUniqueResult = [];
+            // For each unique result (CORRECT, WRONG)
+            var _departments = _this.department ? [_this.department] : departments;
+            var answersByUniqueResult = [];
             uniqueResults.forEach(function (currentUniqueResult, index) {
-                var _resultsByUniqueResult = _this.results
-                    .filter(function (elem, i, array) {
-                    return elem.result === currentUniqueResult;
-                })
-                    .reduce(function (accumulator, elem) {
-                    accumulator.data[elem.question] = (accumulator.data[elem.question] || 0) + 1;
-                    return accumulator;
-                }, { label: currentUniqueResult, data: {} });
-                resultsByUniqueResult.push(_resultsByUniqueResult);
-            });
-            console.log(resultsByUniqueResult);
-            _this.barChartData = resultsByUniqueResult.map(function (result) {
-                var data = Object.keys(result.data).map(function (key, i, array) {
-                    return result.data[key] / totals[i] * 100;
+                _departments.forEach(function (currentDepartment) {
+                    // Les's accumulate answers per question for current result (CORRECT, WRONG)
+                    var answersByCurrentUniqueResult = _this.answers
+                        .filter(function (elem, i, array) {
+                        return elem.department.toLowerCase() === currentDepartment.toLowerCase(); // Filter by department (SALES, ...)
+                    })
+                        .filter(function (elem, i, array) {
+                        return elem.result === currentUniqueResult;
+                    })
+                        .reduce(function (accumulator, elem) {
+                        accumulator.data[elem.question] = (accumulator.data[elem.question] || 0) + 1;
+                        return accumulator;
+                    }, { stack: currentUniqueResult, label: _this.getLabel(currentDepartment, currentUniqueResult), data: {} });
+                    answersByUniqueResult.push(answersByCurrentUniqueResult);
                 });
-                return { label: result.label, data: data };
             });
-            console.log(_this.barChartData);
+            console.log('Antes de barChartData', answersByUniqueResult);
+            // barChartData => array of series, in our case, 1 serie per unique result => label CORRECT, label WRONG
+            _this.barChartData = answersByUniqueResult.map(function (result) {
+                var data = uniqueQuestions.map(function (currentQuestion, index) {
+                    //return result.data[currentQuestion] / totals[index] * 100 || 0;
+                    return result.data[currentQuestion] || 0;
+                });
+                return { stack: result.stack, label: result.label, data: data };
+            });
+            console.log('barChartData', _this.barChartData);
         };
         // customize default values of typeaheads used by this component tree
         config.showHint = true;
@@ -602,7 +730,7 @@ exports = module.exports = __webpack_require__(30)();
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".theme {\n  /* body styles here */\n  \n\n}\n\n:host {\n    \n    color: #333333 ;\n\n    font-family: Verdana, Geneva, Tahoma, sans-serif;\n\n}\n", ""]);
 
 // exports
 
@@ -905,14 +1033,14 @@ webpackContext.id = 393;
 /***/ 396:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n<div class=\"page-header\">\n  <h1>{{title}}</h1>\n</div>\n</div>\n\n<app-chart></app-chart>\n<!--<app-create-order></app-create-order>-->\n"
+module.exports = "<div class=\"container\">\n<div class=\"page-header\">\n  <h1 class=\"display-3 text-center\">{{title}}</h1>\n</div>\n</div>\n\n<app-chart></app-chart>\n<!--<app-create-order></app-create-order>-->\n"
 
 /***/ }),
 
 /***/ 397:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <!--<label for=\"typeahead-config\">City</label>-->\n        <input placeholder=\"City\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"city\" [ngbTypeahead]=\"search\" (ngModelChange)=\"newCityValue($event)\" />\n      </div>\n    </div>\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input  class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                name=\"dp\" [(ngModel)]=\"date\" ngbDatepicker #d=\"ngbDatepicker\">\n        <div class=\"input-group-addon\" (click)=\"city ? d.toggle() : ''\">\n          <img src=\"assets/images/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\"/>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col\">\n      <button [disabled]=\"!searchEventsEnabled()\" class=\"btn btn-primary\" type=\"submit\" (click)=\"searchEvents()\" >Search</button>\n    </div>\n  </div>\n  \n  <div class=\"row\">\n  </div>\n\n  <div class=\"row\">\n    <div class=\"col-md-12\" *ngIf=\"barChartData && barChartLabels\">\n      <div style=\"display: block\">\n        <canvas baseChart\n                [datasets]=\"barChartData\"\n                [labels]=\"barChartLabels\"\n                [options]=\"barChartOptions\"\n                [legend]=\"barChartLegend\"\n                [chartType]=\"barChartType\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n      </div>\n      <!--<button (click)=\"randomize()\">Update</button>-->\n    </div>\n  </div>\n\n  \n</div>\n\n"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input placeholder=\"City\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"city\" [ngbTypeahead]=\"searchCity\" (ngModelChange)=\"newCityValue($event)\" />\n      </div>\n    </div>\n    <!-- we cannot filter out by dept if stacked, because chart.js is not ready to decrease the array -->\n    <!--<div class=\"col\">\n       <div class=\"input-group\">\n        <input placeholder=\"Department\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"department\" [ngbTypeahead]=\"searchDepartment\"/>\n      </div>\n    </div>-->\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input  class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                name=\"dp\" [(ngModel)]=\"date\" ngbDatepicker #d=\"ngbDatepicker\">\n        <div class=\"input-group-addon\" (click)=\"city ? d.toggle() : ''\">\n          <img src=\"assets/images/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\"/>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col\">\n      <button [disabled]=\"!searchEventsEnabled()\" class=\"btn btn-primary float-right\" type=\"submit\" (click)=\"searchEvents()\" >Search</button>\n    </div>\n  </div>\n  \n  <div class=\"row\">\n  </div>\n\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"!topUsers\">\n    <div class=\"col-md-12\">\n    <div class=\"jumbotron\">\n\n      <p class=\"lead text-center\">Please click search after setting city and date</p>\n      \n    </div>\n    </div>\n  </div>\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"topUsers\">\n    <div class=\"col-md-12\" *ngIf=\"barChartData && barChartLabels\">\n      <div >\n        <canvas baseChart\n                [datasets]=\"barChartData\"\n                [labels]=\"barChartLabels\"\n                [options]=\"barChartOptions\"\n                [legend]=\"barChartLegend\"\n                [chartType]=\"barChartType\"\n                [colors]=\"barChartColors\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n      </div>\n      <!--<button (click)=\"randomize()\">Update</button>-->\n    </div>\n    <!--<div class=\"col-md-6\" style=\"margin-bottom: 10px\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th *ngFor=\"let label of barChartLabels\">{{label}}</th>\n      </tr>\n      <tr *ngFor=\"let d of barChartData\">\n        <td *ngFor=\"let label of barChartLabels; let j=index\">{{d && d.data[j]}}</td>\n      </tr>\n    </table>\n    </div>-->\n  </div>\n\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"topUsers\">\n    <div class=\"col-md-6\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th class=\"text-center\">#Position</th><th >Username</th><th class=\"text-center\">Score</th>\n      </tr>\n      <tr *ngFor=\"let user of topUsers; let i = index\">\n        <td class=\"text-center\">{{i + 1}}</td><td>{{user.username}}</td><td class=\"text-center\">{{user.score}}</td>\n      </tr>\n    </table>\n    </div>\n    <div class=\"col-md-6\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th >#Position</th><th >Department</th><th >Score</th>\n      </tr>\n      <tr *ngFor=\"let department of topDepartments; let i = index\">\n        <td class=\"text-center\">{{i + 1}}</td><td>{{department.name}}</td><td class=\"text-center\">{{department.score}}</td>\n      </tr>\n    </table>\n    </div>\n  </div>\n  \n</div>\n\n"
 
 /***/ }),
 

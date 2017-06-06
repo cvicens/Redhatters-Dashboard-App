@@ -1,0 +1,13 @@
+.theme {
+  /* body styles here */
+  
+
+}
+
+:host {
+    
+    color: #333333 ;
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
