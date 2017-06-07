@@ -175,6 +175,16 @@ var resultAbrv = {
     CORRECT: 'OK',
     WRONG: 'KO'
 };
+var INITIAL_DATA_SETS = [
+    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-SALES' },
+    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-PRESALES' },
+    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-MARKETING' },
+    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-HR' },
+    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-SALES' },
+    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-PRESALES' },
+    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-MARKETING' },
+    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-HR' }
+];
 var ChartComponent = (function () {
     //public barChartLabels: string[];
     //public barChartData: any[];
@@ -202,16 +212,7 @@ var ChartComponent = (function () {
         this.barChartType = 'bar';
         this.barChartLegend = true;
         this.barChartLabels = ['Question 1', 'Question 2', 'Question 3', 'Question 4', 'Question 5'];
-        this.barChartData = [
-            { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-SALES' },
-            { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-PRESALES' },
-            { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-MARKETING' },
-            { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-HR' },
-            { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-SALES' },
-            { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-PRESALES' },
-            { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-MARKETING' },
-            { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-HR' }
-        ];
+        this.barChartData = INITIAL_DATA_SETS;
         this.barChartColors = [
             { backgroundColor: 'rgba(196, 30, 61,0.6)', borderColor: 'rgba(196, 30, 61,1)' },
             { backgroundColor: 'rgba(164, 14, 76,0.6)', borderColor: 'rgba(164, 14, 76,1)' },
@@ -279,7 +280,14 @@ var ChartComponent = (function () {
                 _this.fhService.searchAnswersByEventIdAndQuizId(eventId, quizId)
                     .then(function (results) {
                     _this.answers = results;
-                    _this.generateChartDataAllDepartments(_this.answers);
+                    if (Array.isArray(_this.answers) && _this.answers.length > 0) {
+                        _this.generateChartDataAllDepartments(_this.answers);
+                    }
+                    else {
+                        _this.barChartData = INITIAL_DATA_SETS;
+                        _this.topDepartments = [];
+                        _this.topUsers = [];
+                    }
                 })
                     .catch(function (err) {
                     console.error('Error in searchAnswersByEventIdAndQuizId', err);
@@ -1040,7 +1048,7 @@ module.exports = "<div class=\"container\">\n<div class=\"page-header\">\n  <h1 
 /***/ 397:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input placeholder=\"City\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"city\" [ngbTypeahead]=\"searchCity\" (ngModelChange)=\"newCityValue($event)\" />\n      </div>\n    </div>\n    <!-- we cannot filter out by dept if stacked, because chart.js is not ready to decrease the array -->\n    <!--<div class=\"col\">\n       <div class=\"input-group\">\n        <input placeholder=\"Department\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"department\" [ngbTypeahead]=\"searchDepartment\"/>\n      </div>\n    </div>-->\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input  class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                name=\"dp\" [(ngModel)]=\"date\" ngbDatepicker #d=\"ngbDatepicker\">\n        <div class=\"input-group-addon\" (click)=\"city ? d.toggle() : ''\">\n          <img src=\"assets/images/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\"/>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col\">\n      <button [disabled]=\"!searchEventsEnabled()\" class=\"btn btn-primary float-right\" type=\"submit\" (click)=\"searchEvents()\" >Search</button>\n    </div>\n  </div>\n  \n  <div class=\"row\">\n  </div>\n\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"!topUsers\">\n    <div class=\"col-md-12\">\n    <div class=\"jumbotron\">\n\n      <p class=\"lead text-center\">Please click search after setting city and date</p>\n      \n    </div>\n    </div>\n  </div>\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"topUsers\">\n    <div class=\"col-md-12\" *ngIf=\"barChartData && barChartLabels\">\n      <div >\n        <canvas baseChart\n                [datasets]=\"barChartData\"\n                [labels]=\"barChartLabels\"\n                [options]=\"barChartOptions\"\n                [legend]=\"barChartLegend\"\n                [chartType]=\"barChartType\"\n                [colors]=\"barChartColors\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n      </div>\n      <!--<button (click)=\"randomize()\">Update</button>-->\n    </div>\n    <!--<div class=\"col-md-6\" style=\"margin-bottom: 10px\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th *ngFor=\"let label of barChartLabels\">{{label}}</th>\n      </tr>\n      <tr *ngFor=\"let d of barChartData\">\n        <td *ngFor=\"let label of barChartLabels; let j=index\">{{d && d.data[j]}}</td>\n      </tr>\n    </table>\n    </div>-->\n  </div>\n\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"topUsers\">\n    <div class=\"col-md-6\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th class=\"text-center\">#Position</th><th >Username</th><th class=\"text-center\">Score</th>\n      </tr>\n      <tr *ngFor=\"let user of topUsers; let i = index\">\n        <td class=\"text-center\">{{i + 1}}</td><td>{{user.username}}</td><td class=\"text-center\">{{user.score}}</td>\n      </tr>\n    </table>\n    </div>\n    <div class=\"col-md-6\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th >#Position</th><th >Department</th><th >Score</th>\n      </tr>\n      <tr *ngFor=\"let department of topDepartments; let i = index\">\n        <td class=\"text-center\">{{i + 1}}</td><td>{{department.name}}</td><td class=\"text-center\">{{department.score}}</td>\n      </tr>\n    </table>\n    </div>\n  </div>\n  \n</div>\n\n"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input placeholder=\"City\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"city\" [ngbTypeahead]=\"searchCity\" (ngModelChange)=\"newCityValue($event)\" />\n      </div>\n    </div>\n    <!-- we cannot filter out by dept if stacked, because chart.js is not ready to decrease the array -->\n    <!--<div class=\"col\">\n       <div class=\"input-group\">\n        <input placeholder=\"Department\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"department\" [ngbTypeahead]=\"searchDepartment\"/>\n      </div>\n    </div>-->\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input  class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                name=\"dp\" [(ngModel)]=\"date\" ngbDatepicker #d=\"ngbDatepicker\">\n        <div class=\"input-group-addon\" (click)=\"city ? d.toggle() : ''\">\n          <img src=\"assets/images/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\"/>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col\">\n      <button [disabled]=\"!searchEventsEnabled()\" class=\"btn btn-primary float-right\" type=\"submit\" (click)=\"searchEvents()\" >Search</button>\n    </div>\n  </div>\n  \n  <div class=\"row\">\n  </div>\n\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"!topUsers\">\n    <div class=\"col-md-12\">\n    <div class=\"jumbotron\">\n\n      <p class=\"lead text-center\">Please click search after setting city and date</p>\n      \n    </div>\n    </div>\n  </div>\n  <div class=\"row\" style=\"padding-top: 10px\" [hidden]=\"!topUsers\">\n    <div class=\"col-md-12\" *ngIf=\"barChartData && barChartLabels\">\n      <div >\n        <canvas baseChart\n                [datasets]=\"barChartData\"\n                [labels]=\"barChartLabels\"\n                [options]=\"barChartOptions\"\n                [legend]=\"barChartLegend\"\n                [chartType]=\"barChartType\"\n                [colors]=\"barChartColors\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n      </div>\n      <!--<button (click)=\"randomize()\">Update</button>-->\n    </div>\n    <!--<div class=\"col-md-6\" style=\"margin-bottom: 10px\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th *ngFor=\"let label of barChartLabels\">{{label}}</th>\n      </tr>\n      <tr *ngFor=\"let d of barChartData\">\n        <td *ngFor=\"let label of barChartLabels; let j=index\">{{d && d.data[j]}}</td>\n      </tr>\n    </table>\n    </div>-->\n  </div>\n\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"topUsers && topUsers.length > 0\" >\n    <div class=\"col-md-6\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th class=\"text-center\">#Position</th><th >Username</th><th class=\"text-center\">Score</th>\n      </tr>\n      <tr *ngFor=\"let user of topUsers; let i = index\">\n        <td class=\"text-center\">{{i + 1}}</td><td>{{user.username}}</td><td class=\"text-center\">{{user.score}}</td>\n      </tr>\n    </table>\n    </div>\n    <div class=\"col-md-6\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th >#Position</th><th >Department</th><th >Score</th>\n      </tr>\n      <tr *ngFor=\"let department of topDepartments; let i = index\">\n        <td class=\"text-center\">{{i + 1}}</td><td>{{department.name}}</td><td class=\"text-center\">{{department.score}}</td>\n      </tr>\n    </table>\n    </div>\n  </div>\n  \n</div>\n\n"
 
 /***/ }),
 

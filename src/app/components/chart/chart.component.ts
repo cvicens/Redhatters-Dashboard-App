@@ -22,6 +22,18 @@ const resultAbrv = {
   WRONG: 'KO'
 };
 
+const INITIAL_DATA_SETS = [
+  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-SALES'},
+  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-PRESALES'},
+  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-MARKETING'},
+  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-HR'},
+
+  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-SALES'},
+  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-PRESALES'},
+  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-MARKETING'},
+  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-HR'}
+];
+
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
@@ -48,8 +60,8 @@ export class ChartComponent implements OnInit {
   private answers = [];
 
   // Top
-  private topUsers;
-  private topDepartments;
+  private topUsers: any[];
+  private topDepartments: any[];
 
   // Barchart
   public barChartOptions: any = {
@@ -70,17 +82,7 @@ export class ChartComponent implements OnInit {
   public barChartLegend: boolean = true;
 
   public barChartLabels: string[] = ['Question 1', 'Question 2', 'Question 3', 'Question 4', 'Question 5'];
-  public barChartData: any[] = [
-    {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-SALES'},
-    {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-PRESALES'},
-    {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-MARKETING'},
-    {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-HR'},
-
-    {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-SALES'},
-    {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-PRESALES'},
-    {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-MARKETING'},
-    {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-HR'}
-  ];
+  public barChartData: any[] = INITIAL_DATA_SETS;
   public barChartColors: any[] = [
      { backgroundColor: 'rgba(196, 30, 61,0.6)', borderColor: 'rgba(196, 30, 61,1)' },
      { backgroundColor: 'rgba(164, 14, 76,0.6)', borderColor: 'rgba(164, 14, 76,1)' },
@@ -173,8 +175,13 @@ export class ChartComponent implements OnInit {
       this.fhService.searchAnswersByEventIdAndQuizId(eventId, quizId)
       .then((results) => {
         this.answers = results;
-
-        this.generateChartDataAllDepartments (this.answers);
+        if (Array.isArray(this.answers) && this.answers.length > 0) {
+          this.generateChartDataAllDepartments (this.answers);
+        } else {
+          this.barChartData = INITIAL_DATA_SETS;
+          this.topDepartments = [];
+          this.topUsers = [];
+        }
       })
       .catch((err) => {
         console.error('Error in searchAnswersByEventIdAndQuizId', err);
@@ -206,7 +213,7 @@ export class ChartComponent implements OnInit {
     return depAbrv[department] + '-' + resultAbrv[result];
   }
 
-  getTopUsers =  () : any => {
+  getTopUsers =  () : any[] => {
     var topUsersObject = this.answers
       .filter(function(elem, i, array) { // Filter out duplicates
         return elem.result === 'CORRECT';
@@ -230,7 +237,7 @@ export class ChartComponent implements OnInit {
       });
   }
 
-  getTopDepartments =  () : any => {
+  getTopDepartments =  () : any[] => {
     var topDeparmentsObject = this.answers
       .filter(function(elem, i, array) { // Filter out duplicates
         return elem.result === 'CORRECT';

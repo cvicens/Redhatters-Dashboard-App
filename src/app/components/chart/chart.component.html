@@ -38,7 +38,7 @@
     </div>
     </div>
   </div>
-  <div class="row" style="padding-top: 10px" *ngIf="topUsers">
+  <div class="row" style="padding-top: 10px" [hidden]="!topUsers">
     <div class="col-md-12" *ngIf="barChartData && barChartLabels">
       <div >
         <canvas baseChart
@@ -65,7 +65,7 @@
     </div>-->
   </div>
 
-  <div class="row" style="padding-top: 10px" *ngIf="topUsers">
+  <div class="row" style="padding-top: 10px" *ngIf="topUsers && topUsers.length > 0" >
     <div class="col-md-6">
     <table class="table table-responsive table-condensed">
       <tr>
