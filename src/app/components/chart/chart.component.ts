@@ -11,6 +11,9 @@ import { FHService } from '../../service/fh.service';
 
 const cities = [ 'Madrid', 'Lisbon', 'Paris', 'Munich'];
 const departments = [ 'Sales', 'Presales', 'Marketing', 'HR', 'Services'];
+
+const UNIQUE_RESULTS = [ 'CORRECT', 'WRONG'];
+
 const depAbrv = {
   Sales: 'S',
   Presales: 'PS',
@@ -350,7 +353,7 @@ export class ChartComponent implements OnInit, OnDestroy {
     // For each unique result (CORRECT, WRONG)
     var _departments = this.department ? [this.department] : departments;
     var answersByUniqueResult = [];
-    uniqueResults.forEach((currentUniqueResult, index) => {
+    UNIQUE_RESULTS.forEach((currentUniqueResult, index) => {
       _departments.forEach((currentDepartment) => {
         // Les's accumulate answers per question for current result (CORRECT, WRONG)
         let answersByCurrentUniqueResult = this.answers

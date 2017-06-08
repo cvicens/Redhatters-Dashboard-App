@@ -168,6 +168,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var cities = ['Madrid', 'Lisbon', 'Paris', 'Munich'];
 var departments = ['Sales', 'Presales', 'Marketing', 'HR', 'Services'];
+var UNIQUE_RESULTS = ['CORRECT', 'WRONG'];
 var depAbrv = {
     Sales: 'S',
     Presales: 'PS',
@@ -418,7 +419,7 @@ var ChartComponent = (function () {
             // For each unique result (CORRECT, WRONG)
             var _departments = _this.department ? [_this.department] : departments;
             var answersByUniqueResult = [];
-            uniqueResults.forEach(function (currentUniqueResult, index) {
+            UNIQUE_RESULTS.forEach(function (currentUniqueResult, index) {
                 _departments.forEach(function (currentDepartment) {
                     // Les's accumulate answers per question for current result (CORRECT, WRONG)
                     var answersByCurrentUniqueResult = _this.answers
