@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import {Observable} from 'rxjs/Observable';
+import { Observable, Subscription } from 'rxjs/Rx';
+
 import {NgbTypeaheadConfig} from '@ng-bootstrap/ng-bootstrap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
@@ -9,12 +10,13 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { FHService } from '../../service/fh.service';
 
 const cities = [ 'Madrid', 'Lisbon', 'Paris', 'Munich'];
-const departments = [ 'Sales', 'Presales', 'Marketing', 'HR'];
+const departments = [ 'Sales', 'Presales', 'Marketing', 'HR', 'Services'];
 const depAbrv = {
   Sales: 'S',
   Presales: 'PS',
   Marketing: 'MK',
-  HR: 'HR'
+  HR: 'HR',
+  Services: 'SR'
 };
 
 const resultAbrv = {
@@ -23,16 +25,20 @@ const resultAbrv = {
 };
 
 const INITIAL_DATA_SETS = [
-  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-SALES'},
-  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-PRESALES'},
-  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-MARKETING'},
-  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-HR'},
+  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'S-OK'},
+  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'PS-OK'},
+  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'MK-OK'},
+  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'HR-OK'},
+  {stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'SR-OK'},
 
-  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-SALES'},
-  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-PRESALES'},
-  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-MARKETING'},
-  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'WRONG-HR'}
+  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'S-KO'},
+  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'PS-KO'},
+  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'MK-KO'},
+  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'HR-KO'},
+  {stack: 'WRONG',   data: [0, 0, 0, 0, 0], label: 'SR-KO'}
 ];
+
+const INITIAL_LABELS = ['Question 1', 'Question 2', 'Question 3', 'Question 4', 'Question 5'];
 
 @Component({
   selector: 'app-chart',
@@ -40,8 +46,14 @@ const INITIAL_DATA_SETS = [
   styleUrls: ['./chart.component.css'],
   providers: [NgbTypeaheadConfig]
 })
-export class ChartComponent implements OnInit {
+export class ChartComponent implements OnInit, OnDestroy {
   public model: any;
+
+  // Timer to trigger search automatically
+  ticks = 0;
+  private timer;
+  // Subscription object
+  private sub: Subscription;
 
   // City
   public city: string;
@@ -81,18 +93,20 @@ export class ChartComponent implements OnInit {
   public barChartType: string = 'bar';
   public barChartLegend: boolean = true;
 
-  public barChartLabels: string[] = ['Question 1', 'Question 2', 'Question 3', 'Question 4', 'Question 5'];
+  public barChartLabels: string[] = INITIAL_LABELS;
   public barChartData: any[] = INITIAL_DATA_SETS;
   public barChartColors: any[] = [
      { backgroundColor: 'rgba(196, 30, 61,0.6)', borderColor: 'rgba(196, 30, 61,1)' },
      { backgroundColor: 'rgba(164, 14, 76,0.6)', borderColor: 'rgba(164, 14, 76,1)' },
      { backgroundColor: 'rgba(137,  2, 62,0.6)', borderColor: 'rgba(137,  2, 62,1)' },
      { backgroundColor: 'rgba(234, 99,140,0.6)', borderColor: 'rgba(234, 99,140,1)' },
+     { backgroundColor: 'rgba(245, 60,160,0.6)', borderColor: 'rgba(245, 60,160,1)' },
 
      { backgroundColor: 'rgba( 50,151, 73,0.6)', borderColor: 'rgba( 50,151, 73,1)' },
      { backgroundColor: 'rgba(161,195, 48,0.6)', borderColor: 'rgba(161,195, 48,1)' },
      { backgroundColor: 'rgba(202,213,147,0.6)', borderColor: 'rgba(202,213,147,1)' },
      { backgroundColor: 'rgba( 19,117, 71,0.6)', borderColor: 'rgba( 19,117, 71,1)' },
+     { backgroundColor: 'rgba( 10,180, 50,0.6)', borderColor: 'rgba( 10,180, 50,1)' },
   ];
 
   //public barChartLabels: string[];
@@ -119,6 +133,24 @@ export class ChartComponent implements OnInit {
         : departments.filter(v => v.toLowerCase().startsWith(term.toLocaleLowerCase())).splice(0, 10));
 
   ngOnInit() {
+      this.timer = Observable.timer(2000, 5000);
+      // subscribing to a observable returns a subscription object
+      this.sub = this.timer.subscribe(t => this.tickerFunc(t));
+  }
+
+  tickerFunc(tick) {
+      this.ticks = tick;
+      console.log('tickerFunc', this.ticks);
+
+      if (this.searchEventsEnabled()) {
+        this.searchEvents();
+      }
+  }
+
+  ngOnDestroy() {
+      console.log('Destroy timer');
+      // unsubscribe here
+      this.sub.unsubscribe();
   }
 
   newCityValue = ($event) => {
