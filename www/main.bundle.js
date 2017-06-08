@@ -1,6 +1,6 @@
 webpackJsonp([1,4],{
 
-/***/ 271:
+/***/ 327:
 /***/ (function(module, exports) {
 
 function webpackEmptyContext(req) {
@@ -9,20 +9,20 @@ function webpackEmptyContext(req) {
 webpackEmptyContext.keys = function() { return []; };
 webpackEmptyContext.resolve = webpackEmptyContext;
 module.exports = webpackEmptyContext;
-webpackEmptyContext.id = 271;
+webpackEmptyContext.id = 327;
 
 
 /***/ }),
 
-/***/ 272:
+/***/ 328:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(289);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_app_module__ = __webpack_require__(339);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(345);
 
 
 
@@ -35,11 +35,11 @@ __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dyna
 
 /***/ }),
 
-/***/ 282:
+/***/ 338:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -57,8 +57,8 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-root',
-        template: __webpack_require__(396),
-        styles: [__webpack_require__(389)]
+        template: __webpack_require__(452),
+        styles: [__webpack_require__(445)]
     })
 ], AppComponent);
 
@@ -66,22 +66,22 @@ AppComponent = __decorate([
 
 /***/ }),
 
-/***/ 283:
+/***/ 339:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(276);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(278);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_charts__ = __webpack_require__(395);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(332);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_router__ = __webpack_require__(334);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ng_bootstrap_ng_bootstrap__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_charts__ = __webpack_require__(451);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng2_charts___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_ng2_charts__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(282);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__create_order_create_order_component__ = __webpack_require__(285);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__service_fh_service__ = __webpack_require__(58);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_chart_chart_component__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_component__ = __webpack_require__(338);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__create_order_create_order_component__ = __webpack_require__(341);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__service_fh_service__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__components_chart_chart_component__ = __webpack_require__(340);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -134,19 +134,21 @@ AppModule = __decorate([
 
 /***/ }),
 
-/***/ 284:
+/***/ 340:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__ = __webpack_require__(106);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(406);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_debounceTime__ = __webpack_require__(404);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_debounceTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_debounceTime__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_distinctUntilChanged__ = __webpack_require__(405);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_distinctUntilChanged___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_distinctUntilChanged__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__service_fh_service__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__ = __webpack_require__(456);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_debounceTime__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_debounceTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_debounceTime__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_distinctUntilChanged__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_distinctUntilChanged___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_operator_distinctUntilChanged__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__service_fh_service__ = __webpack_require__(82);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ChartComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -163,28 +165,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var cities = ['Madrid', 'Lisbon', 'Paris', 'Munich'];
-var departments = ['Sales', 'Presales', 'Marketing', 'HR'];
+var departments = ['Sales', 'Presales', 'Marketing', 'HR', 'Services'];
 var depAbrv = {
     Sales: 'S',
     Presales: 'PS',
     Marketing: 'MK',
-    HR: 'HR'
+    HR: 'HR',
+    Services: 'SR'
 };
 var resultAbrv = {
     CORRECT: 'OK',
     WRONG: 'KO'
 };
 var INITIAL_DATA_SETS = [
-    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-SALES' },
-    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-PRESALES' },
-    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-MARKETING' },
-    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'CORRECT-HR' },
-    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-SALES' },
-    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-PRESALES' },
-    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-MARKETING' },
-    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'WRONG-HR' }
+    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'S-OK' },
+    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'PS-OK' },
+    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'MK-OK' },
+    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'HR-OK' },
+    { stack: 'CORRECT', data: [0, 0, 0, 0, 0], label: 'SR-OK' },
+    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'S-KO' },
+    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'PS-KO' },
+    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'MK-KO' },
+    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'HR-KO' },
+    { stack: 'WRONG', data: [0, 0, 0, 0, 0], label: 'SR-KO' }
 ];
+var INITIAL_LABELS = ['Question 1', 'Question 2', 'Question 3', 'Question 4', 'Question 5'];
 var ChartComponent = (function () {
     //public barChartLabels: string[];
     //public barChartData: any[];
@@ -192,6 +199,8 @@ var ChartComponent = (function () {
     function ChartComponent(fhService, config) {
         var _this = this;
         this.fhService = fhService;
+        // Timer to trigger search automatically
+        this.ticks = 0;
         this.events = [];
         // Quiz results
         this.answers = [];
@@ -211,17 +220,19 @@ var ChartComponent = (function () {
         };
         this.barChartType = 'bar';
         this.barChartLegend = true;
-        this.barChartLabels = ['Question 1', 'Question 2', 'Question 3', 'Question 4', 'Question 5'];
+        this.barChartLabels = INITIAL_LABELS;
         this.barChartData = INITIAL_DATA_SETS;
         this.barChartColors = [
             { backgroundColor: 'rgba(196, 30, 61,0.6)', borderColor: 'rgba(196, 30, 61,1)' },
             { backgroundColor: 'rgba(164, 14, 76,0.6)', borderColor: 'rgba(164, 14, 76,1)' },
             { backgroundColor: 'rgba(137,  2, 62,0.6)', borderColor: 'rgba(137,  2, 62,1)' },
             { backgroundColor: 'rgba(234, 99,140,0.6)', borderColor: 'rgba(234, 99,140,1)' },
+            { backgroundColor: 'rgba(245, 60,160,0.6)', borderColor: 'rgba(245, 60,160,1)' },
             { backgroundColor: 'rgba( 50,151, 73,0.6)', borderColor: 'rgba( 50,151, 73,1)' },
             { backgroundColor: 'rgba(161,195, 48,0.6)', borderColor: 'rgba(161,195, 48,1)' },
             { backgroundColor: 'rgba(202,213,147,0.6)', borderColor: 'rgba(202,213,147,1)' },
             { backgroundColor: 'rgba( 19,117, 71,0.6)', borderColor: 'rgba( 19,117, 71,1)' },
+            { backgroundColor: 'rgba( 10,180, 50,0.6)', borderColor: 'rgba( 10,180, 50,1)' },
         ];
         this.searchCity = function (text$) {
             return text$
@@ -439,6 +450,22 @@ var ChartComponent = (function () {
         config.showHint = true;
     }
     ChartComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.timer = __WEBPACK_IMPORTED_MODULE_1_rxjs_Rx__["Observable"].timer(2000, 5000);
+        // subscribing to a observable returns a subscription object
+        this.sub = this.timer.subscribe(function (t) { return _this.tickerFunc(t); });
+    };
+    ChartComponent.prototype.tickerFunc = function (tick) {
+        this.ticks = tick;
+        console.log('tickerFunc', this.ticks);
+        if (this.searchEventsEnabled()) {
+            this.searchEvents();
+        }
+    };
+    ChartComponent.prototype.ngOnDestroy = function () {
+        console.log('Destroy timer');
+        // unsubscribe here
+        this.sub.unsubscribe();
     };
     ChartComponent.prototype.getFormattedDate = function (date) {
         return date.getFullYear() + ('0' + (date.getMonth() + 1)).slice(-2) + ('0' + date.getDate()).slice(-2);
@@ -476,11 +503,11 @@ var ChartComponent = (function () {
 ChartComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-chart',
-        template: __webpack_require__(397),
-        styles: [__webpack_require__(390)],
-        providers: [__WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["b" /* NgbTypeaheadConfig */]]
+        template: __webpack_require__(453),
+        styles: [__webpack_require__(446)],
+        providers: [__WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbTypeaheadConfig */]]
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_5__service_fh_service__["a" /* FHService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__service_fh_service__["a" /* FHService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["b" /* NgbTypeaheadConfig */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["b" /* NgbTypeaheadConfig */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_6__service_fh_service__["a" /* FHService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__service_fh_service__["a" /* FHService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbTypeaheadConfig */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ng_bootstrap_ng_bootstrap__["b" /* NgbTypeaheadConfig */]) === "function" && _b || Object])
 ], ChartComponent);
 
 var _a, _b;
@@ -488,15 +515,15 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 285:
+/***/ 341:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_order__ = __webpack_require__(288);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_form_order__ = __webpack_require__(287);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_assignee__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_fh_service__ = __webpack_require__(58);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_order__ = __webpack_require__(344);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_form_order__ = __webpack_require__(343);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_assignee__ = __webpack_require__(342);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__service_fh_service__ = __webpack_require__(82);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CreateOrderComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -558,8 +585,8 @@ var CreateOrderComponent = (function () {
 CreateOrderComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'app-create-order',
-        template: __webpack_require__(398),
-        styles: [__webpack_require__(391)]
+        template: __webpack_require__(454),
+        styles: [__webpack_require__(447)]
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__service_fh_service__["a" /* FHService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__service_fh_service__["a" /* FHService */]) === "function" && _a || Object])
 ], CreateOrderComponent);
@@ -569,7 +596,7 @@ var _a;
 
 /***/ }),
 
-/***/ 286:
+/***/ 342:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -586,7 +613,7 @@ var Assignee = (function () {
 
 /***/ }),
 
-/***/ 287:
+/***/ 343:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -604,7 +631,7 @@ var FormOrder = (function () {
 
 /***/ }),
 
-/***/ 288:
+/***/ 344:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -713,7 +740,7 @@ var Order = (function () {
 
 /***/ }),
 
-/***/ 289:
+/***/ 345:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -730,10 +757,10 @@ var environment = {
 
 /***/ }),
 
-/***/ 389:
+/***/ 445:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(30)();
+exports = module.exports = __webpack_require__(41)();
 // imports
 
 
@@ -748,10 +775,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 390:
+/***/ 446:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(30)();
+exports = module.exports = __webpack_require__(41)();
 // imports
 
 
@@ -766,10 +793,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 391:
+/***/ 447:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(30)();
+exports = module.exports = __webpack_require__(41)();
 // imports
 
 
@@ -784,240 +811,240 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 393:
+/***/ 449:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 146,
-	"./af.js": 146,
-	"./ar": 153,
-	"./ar-dz": 147,
-	"./ar-dz.js": 147,
-	"./ar-kw": 148,
-	"./ar-kw.js": 148,
-	"./ar-ly": 149,
-	"./ar-ly.js": 149,
-	"./ar-ma": 150,
-	"./ar-ma.js": 150,
-	"./ar-sa": 151,
-	"./ar-sa.js": 151,
-	"./ar-tn": 152,
-	"./ar-tn.js": 152,
-	"./ar.js": 153,
-	"./az": 154,
-	"./az.js": 154,
-	"./be": 155,
-	"./be.js": 155,
-	"./bg": 156,
-	"./bg.js": 156,
-	"./bn": 157,
-	"./bn.js": 157,
-	"./bo": 158,
-	"./bo.js": 158,
-	"./br": 159,
-	"./br.js": 159,
-	"./bs": 160,
-	"./bs.js": 160,
-	"./ca": 161,
-	"./ca.js": 161,
-	"./cs": 162,
-	"./cs.js": 162,
-	"./cv": 163,
-	"./cv.js": 163,
-	"./cy": 164,
-	"./cy.js": 164,
-	"./da": 165,
-	"./da.js": 165,
-	"./de": 168,
-	"./de-at": 166,
-	"./de-at.js": 166,
-	"./de-ch": 167,
-	"./de-ch.js": 167,
-	"./de.js": 168,
-	"./dv": 169,
-	"./dv.js": 169,
-	"./el": 170,
-	"./el.js": 170,
-	"./en-au": 171,
-	"./en-au.js": 171,
-	"./en-ca": 172,
-	"./en-ca.js": 172,
-	"./en-gb": 173,
-	"./en-gb.js": 173,
-	"./en-ie": 174,
-	"./en-ie.js": 174,
-	"./en-nz": 175,
-	"./en-nz.js": 175,
-	"./eo": 176,
-	"./eo.js": 176,
-	"./es": 178,
-	"./es-do": 177,
-	"./es-do.js": 177,
-	"./es.js": 178,
-	"./et": 179,
-	"./et.js": 179,
-	"./eu": 180,
-	"./eu.js": 180,
-	"./fa": 181,
-	"./fa.js": 181,
-	"./fi": 182,
-	"./fi.js": 182,
-	"./fo": 183,
-	"./fo.js": 183,
-	"./fr": 186,
-	"./fr-ca": 184,
-	"./fr-ca.js": 184,
-	"./fr-ch": 185,
-	"./fr-ch.js": 185,
-	"./fr.js": 186,
-	"./fy": 187,
-	"./fy.js": 187,
-	"./gd": 188,
-	"./gd.js": 188,
-	"./gl": 189,
-	"./gl.js": 189,
-	"./gom-latn": 190,
-	"./gom-latn.js": 190,
-	"./he": 191,
-	"./he.js": 191,
-	"./hi": 192,
-	"./hi.js": 192,
-	"./hr": 193,
-	"./hr.js": 193,
-	"./hu": 194,
-	"./hu.js": 194,
-	"./hy-am": 195,
-	"./hy-am.js": 195,
-	"./id": 196,
-	"./id.js": 196,
-	"./is": 197,
-	"./is.js": 197,
-	"./it": 198,
-	"./it.js": 198,
-	"./ja": 199,
-	"./ja.js": 199,
-	"./jv": 200,
-	"./jv.js": 200,
-	"./ka": 201,
-	"./ka.js": 201,
-	"./kk": 202,
-	"./kk.js": 202,
-	"./km": 203,
-	"./km.js": 203,
-	"./kn": 204,
-	"./kn.js": 204,
-	"./ko": 205,
-	"./ko.js": 205,
-	"./ky": 206,
-	"./ky.js": 206,
-	"./lb": 207,
-	"./lb.js": 207,
-	"./lo": 208,
-	"./lo.js": 208,
-	"./lt": 209,
-	"./lt.js": 209,
-	"./lv": 210,
-	"./lv.js": 210,
-	"./me": 211,
-	"./me.js": 211,
-	"./mi": 212,
-	"./mi.js": 212,
-	"./mk": 213,
-	"./mk.js": 213,
-	"./ml": 214,
-	"./ml.js": 214,
-	"./mr": 215,
-	"./mr.js": 215,
-	"./ms": 217,
-	"./ms-my": 216,
-	"./ms-my.js": 216,
-	"./ms.js": 217,
-	"./my": 218,
-	"./my.js": 218,
-	"./nb": 219,
-	"./nb.js": 219,
-	"./ne": 220,
-	"./ne.js": 220,
-	"./nl": 222,
-	"./nl-be": 221,
-	"./nl-be.js": 221,
-	"./nl.js": 222,
-	"./nn": 223,
-	"./nn.js": 223,
-	"./pa-in": 224,
-	"./pa-in.js": 224,
-	"./pl": 225,
-	"./pl.js": 225,
-	"./pt": 227,
-	"./pt-br": 226,
-	"./pt-br.js": 226,
-	"./pt.js": 227,
-	"./ro": 228,
-	"./ro.js": 228,
-	"./ru": 229,
-	"./ru.js": 229,
-	"./sd": 230,
-	"./sd.js": 230,
-	"./se": 231,
-	"./se.js": 231,
-	"./si": 232,
-	"./si.js": 232,
-	"./sk": 233,
-	"./sk.js": 233,
-	"./sl": 234,
-	"./sl.js": 234,
-	"./sq": 235,
-	"./sq.js": 235,
-	"./sr": 237,
-	"./sr-cyrl": 236,
-	"./sr-cyrl.js": 236,
-	"./sr.js": 237,
-	"./ss": 238,
-	"./ss.js": 238,
-	"./sv": 239,
-	"./sv.js": 239,
-	"./sw": 240,
-	"./sw.js": 240,
-	"./ta": 241,
-	"./ta.js": 241,
-	"./te": 242,
-	"./te.js": 242,
-	"./tet": 243,
-	"./tet.js": 243,
-	"./th": 244,
-	"./th.js": 244,
-	"./tl-ph": 245,
-	"./tl-ph.js": 245,
-	"./tlh": 246,
-	"./tlh.js": 246,
-	"./tr": 247,
-	"./tr.js": 247,
-	"./tzl": 248,
-	"./tzl.js": 248,
-	"./tzm": 250,
-	"./tzm-latn": 249,
-	"./tzm-latn.js": 249,
-	"./tzm.js": 250,
-	"./uk": 251,
-	"./uk.js": 251,
-	"./ur": 252,
-	"./ur.js": 252,
-	"./uz": 254,
-	"./uz-latn": 253,
-	"./uz-latn.js": 253,
-	"./uz.js": 254,
-	"./vi": 255,
-	"./vi.js": 255,
-	"./x-pseudo": 256,
-	"./x-pseudo.js": 256,
-	"./yo": 257,
-	"./yo.js": 257,
-	"./zh-cn": 258,
-	"./zh-cn.js": 258,
-	"./zh-hk": 259,
-	"./zh-hk.js": 259,
-	"./zh-tw": 260,
-	"./zh-tw.js": 260
+	"./af": 168,
+	"./af.js": 168,
+	"./ar": 175,
+	"./ar-dz": 169,
+	"./ar-dz.js": 169,
+	"./ar-kw": 170,
+	"./ar-kw.js": 170,
+	"./ar-ly": 171,
+	"./ar-ly.js": 171,
+	"./ar-ma": 172,
+	"./ar-ma.js": 172,
+	"./ar-sa": 173,
+	"./ar-sa.js": 173,
+	"./ar-tn": 174,
+	"./ar-tn.js": 174,
+	"./ar.js": 175,
+	"./az": 176,
+	"./az.js": 176,
+	"./be": 177,
+	"./be.js": 177,
+	"./bg": 178,
+	"./bg.js": 178,
+	"./bn": 179,
+	"./bn.js": 179,
+	"./bo": 180,
+	"./bo.js": 180,
+	"./br": 181,
+	"./br.js": 181,
+	"./bs": 182,
+	"./bs.js": 182,
+	"./ca": 183,
+	"./ca.js": 183,
+	"./cs": 184,
+	"./cs.js": 184,
+	"./cv": 185,
+	"./cv.js": 185,
+	"./cy": 186,
+	"./cy.js": 186,
+	"./da": 187,
+	"./da.js": 187,
+	"./de": 190,
+	"./de-at": 188,
+	"./de-at.js": 188,
+	"./de-ch": 189,
+	"./de-ch.js": 189,
+	"./de.js": 190,
+	"./dv": 191,
+	"./dv.js": 191,
+	"./el": 192,
+	"./el.js": 192,
+	"./en-au": 193,
+	"./en-au.js": 193,
+	"./en-ca": 194,
+	"./en-ca.js": 194,
+	"./en-gb": 195,
+	"./en-gb.js": 195,
+	"./en-ie": 196,
+	"./en-ie.js": 196,
+	"./en-nz": 197,
+	"./en-nz.js": 197,
+	"./eo": 198,
+	"./eo.js": 198,
+	"./es": 200,
+	"./es-do": 199,
+	"./es-do.js": 199,
+	"./es.js": 200,
+	"./et": 201,
+	"./et.js": 201,
+	"./eu": 202,
+	"./eu.js": 202,
+	"./fa": 203,
+	"./fa.js": 203,
+	"./fi": 204,
+	"./fi.js": 204,
+	"./fo": 205,
+	"./fo.js": 205,
+	"./fr": 208,
+	"./fr-ca": 206,
+	"./fr-ca.js": 206,
+	"./fr-ch": 207,
+	"./fr-ch.js": 207,
+	"./fr.js": 208,
+	"./fy": 209,
+	"./fy.js": 209,
+	"./gd": 210,
+	"./gd.js": 210,
+	"./gl": 211,
+	"./gl.js": 211,
+	"./gom-latn": 212,
+	"./gom-latn.js": 212,
+	"./he": 213,
+	"./he.js": 213,
+	"./hi": 214,
+	"./hi.js": 214,
+	"./hr": 215,
+	"./hr.js": 215,
+	"./hu": 216,
+	"./hu.js": 216,
+	"./hy-am": 217,
+	"./hy-am.js": 217,
+	"./id": 218,
+	"./id.js": 218,
+	"./is": 219,
+	"./is.js": 219,
+	"./it": 220,
+	"./it.js": 220,
+	"./ja": 221,
+	"./ja.js": 221,
+	"./jv": 222,
+	"./jv.js": 222,
+	"./ka": 223,
+	"./ka.js": 223,
+	"./kk": 224,
+	"./kk.js": 224,
+	"./km": 225,
+	"./km.js": 225,
+	"./kn": 226,
+	"./kn.js": 226,
+	"./ko": 227,
+	"./ko.js": 227,
+	"./ky": 228,
+	"./ky.js": 228,
+	"./lb": 229,
+	"./lb.js": 229,
+	"./lo": 230,
+	"./lo.js": 230,
+	"./lt": 231,
+	"./lt.js": 231,
+	"./lv": 232,
+	"./lv.js": 232,
+	"./me": 233,
+	"./me.js": 233,
+	"./mi": 234,
+	"./mi.js": 234,
+	"./mk": 235,
+	"./mk.js": 235,
+	"./ml": 236,
+	"./ml.js": 236,
+	"./mr": 237,
+	"./mr.js": 237,
+	"./ms": 239,
+	"./ms-my": 238,
+	"./ms-my.js": 238,
+	"./ms.js": 239,
+	"./my": 240,
+	"./my.js": 240,
+	"./nb": 241,
+	"./nb.js": 241,
+	"./ne": 242,
+	"./ne.js": 242,
+	"./nl": 244,
+	"./nl-be": 243,
+	"./nl-be.js": 243,
+	"./nl.js": 244,
+	"./nn": 245,
+	"./nn.js": 245,
+	"./pa-in": 246,
+	"./pa-in.js": 246,
+	"./pl": 247,
+	"./pl.js": 247,
+	"./pt": 249,
+	"./pt-br": 248,
+	"./pt-br.js": 248,
+	"./pt.js": 249,
+	"./ro": 250,
+	"./ro.js": 250,
+	"./ru": 251,
+	"./ru.js": 251,
+	"./sd": 252,
+	"./sd.js": 252,
+	"./se": 253,
+	"./se.js": 253,
+	"./si": 254,
+	"./si.js": 254,
+	"./sk": 255,
+	"./sk.js": 255,
+	"./sl": 256,
+	"./sl.js": 256,
+	"./sq": 257,
+	"./sq.js": 257,
+	"./sr": 259,
+	"./sr-cyrl": 258,
+	"./sr-cyrl.js": 258,
+	"./sr.js": 259,
+	"./ss": 260,
+	"./ss.js": 260,
+	"./sv": 261,
+	"./sv.js": 261,
+	"./sw": 262,
+	"./sw.js": 262,
+	"./ta": 263,
+	"./ta.js": 263,
+	"./te": 264,
+	"./te.js": 264,
+	"./tet": 265,
+	"./tet.js": 265,
+	"./th": 266,
+	"./th.js": 266,
+	"./tl-ph": 267,
+	"./tl-ph.js": 267,
+	"./tlh": 268,
+	"./tlh.js": 268,
+	"./tr": 269,
+	"./tr.js": 269,
+	"./tzl": 270,
+	"./tzl.js": 270,
+	"./tzm": 272,
+	"./tzm-latn": 271,
+	"./tzm-latn.js": 271,
+	"./tzm.js": 272,
+	"./uk": 273,
+	"./uk.js": 273,
+	"./ur": 274,
+	"./ur.js": 274,
+	"./uz": 276,
+	"./uz-latn": 275,
+	"./uz-latn.js": 275,
+	"./uz.js": 276,
+	"./vi": 277,
+	"./vi.js": 277,
+	"./x-pseudo": 278,
+	"./x-pseudo.js": 278,
+	"./yo": 279,
+	"./yo.js": 279,
+	"./zh-cn": 280,
+	"./zh-cn.js": 280,
+	"./zh-hk": 281,
+	"./zh-hk.js": 281,
+	"./zh-tw": 282,
+	"./zh-tw.js": 282
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -1033,46 +1060,46 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 393;
+webpackContext.id = 449;
 
 
 /***/ }),
 
-/***/ 396:
+/***/ 452:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"container\">\n<div class=\"page-header\">\n  <h1 class=\"display-3 text-center\">{{title}}</h1>\n</div>\n</div>\n\n<app-chart></app-chart>\n<!--<app-create-order></app-create-order>-->\n"
 
 /***/ }),
 
-/***/ 397:
+/***/ 453:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input placeholder=\"City\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"city\" [ngbTypeahead]=\"searchCity\" (ngModelChange)=\"newCityValue($event)\" />\n      </div>\n    </div>\n    <!-- we cannot filter out by dept if stacked, because chart.js is not ready to decrease the array -->\n    <!--<div class=\"col\">\n       <div class=\"input-group\">\n        <input placeholder=\"Department\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"department\" [ngbTypeahead]=\"searchDepartment\"/>\n      </div>\n    </div>-->\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input  class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                name=\"dp\" [(ngModel)]=\"date\" ngbDatepicker #d=\"ngbDatepicker\">\n        <div class=\"input-group-addon\" (click)=\"city ? d.toggle() : ''\">\n          <img src=\"assets/images/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\"/>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col\">\n      <button [disabled]=\"!searchEventsEnabled()\" class=\"btn btn-primary float-right\" type=\"submit\" (click)=\"searchEvents()\" >Search</button>\n    </div>\n  </div>\n  \n  <div class=\"row\">\n  </div>\n\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"!topUsers\">\n    <div class=\"col-md-12\">\n    <div class=\"jumbotron\">\n\n      <p class=\"lead text-center\">Please click search after setting city and date</p>\n      \n    </div>\n    </div>\n  </div>\n  <div class=\"row\" style=\"padding-top: 10px\" [hidden]=\"!topUsers\">\n    <div class=\"col-md-12\" *ngIf=\"barChartData && barChartLabels\">\n      <div >\n        <canvas baseChart\n                [datasets]=\"barChartData\"\n                [labels]=\"barChartLabels\"\n                [options]=\"barChartOptions\"\n                [legend]=\"barChartLegend\"\n                [chartType]=\"barChartType\"\n                [colors]=\"barChartColors\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n      </div>\n      <!--<button (click)=\"randomize()\">Update</button>-->\n    </div>\n    <!--<div class=\"col-md-6\" style=\"margin-bottom: 10px\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th *ngFor=\"let label of barChartLabels\">{{label}}</th>\n      </tr>\n      <tr *ngFor=\"let d of barChartData\">\n        <td *ngFor=\"let label of barChartLabels; let j=index\">{{d && d.data[j]}}</td>\n      </tr>\n    </table>\n    </div>-->\n  </div>\n\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"topUsers && topUsers.length > 0\" >\n    <div class=\"col-md-6\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th class=\"text-center\">#Position</th><th >Username</th><th class=\"text-center\">Score</th>\n      </tr>\n      <tr *ngFor=\"let user of topUsers; let i = index\">\n        <td class=\"text-center\">{{i + 1}}</td><td>{{user.username}}</td><td class=\"text-center\">{{user.score}}</td>\n      </tr>\n    </table>\n    </div>\n    <div class=\"col-md-6\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th >#Position</th><th >Department</th><th >Score</th>\n      </tr>\n      <tr *ngFor=\"let department of topDepartments; let i = index\">\n        <td class=\"text-center\">{{i + 1}}</td><td>{{department.name}}</td><td class=\"text-center\">{{department.score}}</td>\n      </tr>\n    </table>\n    </div>\n  </div>\n  \n</div>\n\n"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input placeholder=\"City\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"city\" [ngbTypeahead]=\"searchCity\" (ngModelChange)=\"newCityValue($event)\" />\n      </div>\n    </div>\n    <!-- we cannot filter out by dept if stacked, because chart.js is not ready to decrease the array -->\n    <!--<div class=\"col\">\n       <div class=\"input-group\">\n        <input placeholder=\"Department\" id=\"typeahead-config\" type=\"text\" class=\"form-control\" [(ngModel)]=\"department\" [ngbTypeahead]=\"searchDepartment\"/>\n      </div>\n    </div>-->\n    <div class=\"col\">\n      <div class=\"input-group\">\n        <input  class=\"form-control\" placeholder=\"yyyy-mm-dd\"\n                name=\"dp\" [(ngModel)]=\"date\" ngbDatepicker #d=\"ngbDatepicker\">\n        <div class=\"input-group-addon\" (click)=\"city ? d.toggle() : ''\">\n          <img src=\"assets/images/calendar-icon.svg\" style=\"width: 1.2rem; height: 1rem; cursor: pointer;\"/>\n        </div>\n      </div>\n    </div>\n\n    <div class=\"col\">\n      <button [disabled]=\"!searchEventsEnabled()\" class=\"btn btn-primary float-right\" type=\"submit\" (click)=\"searchEvents()\" >Search</button>\n    </div>\n  </div>\n  \n  <div class=\"row\">\n  </div>\n\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"!topUsers\">\n    <div class=\"col-md-12\">\n    <div class=\"jumbotron\">\n\n      <p class=\"lead text-center\">Please click search after setting city and date</p>\n      \n    </div>\n    </div>\n  </div>\n  <div class=\"row\" style=\"padding-top: 10px\" [hidden]=\"!topUsers\">\n    <div class=\"col-md-12\" *ngIf=\"barChartData && barChartLabels\">\n      <div >\n        <canvas baseChart\n                [datasets]=\"barChartData\"\n                [labels]=\"barChartLabels\"\n                [options]=\"barChartOptions\"\n                [legend]=\"barChartLegend\"\n                [chartType]=\"barChartType\"\n                [colors]=\"barChartColors\"\n                (chartHover)=\"chartHovered($event)\"\n                (chartClick)=\"chartClicked($event)\"></canvas>\n      </div>\n      <!--<button (click)=\"randomize()\">Update</button>-->\n    </div>\n    <!--<div class=\"col-md-6\" style=\"margin-bottom: 10px\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th *ngFor=\"let label of barChartLabels\">{{label}}</th>\n      </tr>\n      <tr *ngFor=\"let d of barChartData\">\n        <td *ngFor=\"let label of barChartLabels; let j=index\">{{d && d.data[j]}}</td>\n      </tr>\n    </table>\n    </div>-->\n  </div>\n\n  <div class=\"row\" style=\"padding-top: 10px\" *ngIf=\"topUsers && topUsers.length > 0\" >\n    <div class=\"col-md-6\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th class=\"text-center\">#Position</th><th >Username</th><th class=\"text-center\">Score</th>\n      </tr>\n      <tr *ngFor=\"let user of topUsers; let i = index\">\n        <td class=\"text-center\">{{i + 1}}</td><td>{{user.username}}</td><td class=\"text-center\">{{user.score}}</td>\n      </tr>\n    </table>\n    </div>\n    <div class=\"col-md-6\">\n    <table class=\"table table-responsive table-condensed\">\n      <tr>\n        <th >#Position</th><th >Department</th><th >Score</th>\n      </tr>\n      <tr *ngFor=\"let department of topDepartments; let i = index\">\n        <td class=\"text-center\">{{i + 1}}</td><td>{{department.name | uppercase}}</td><td class=\"text-center\">{{department.score}}</td>\n      </tr>\n    </table>\n    </div>\n  </div>\n  \n</div>\n\n"
 
 /***/ }),
 
-/***/ 398:
+/***/ 454:
 /***/ (function(module, exports) {
 
 module.exports = "<div class=\"container\">\n    <h3>New Order Form</h3>\n    <form (ngSubmit)=\"onSubmit()\"  #orderForm=\"ngForm\"> \n\n      <div class=\"form-group\">\n        <label for=\"name\">Title</label>\n        <input type=\"text\" class=\"form-control\" id=\"title\" required [(ngModel)]=\"model.title\" name=\"title\" #title=\"ngModel\">\n        <div [hidden]=\"title.valid || title.pristine\"\n             class=\"alert alert-danger\">\n          Title is required\n        </div>\n      </div>\n\n      <div class=\"form-group\">\n        <label for=\"assignee\">Assignee</label>\n        <select class=\"form-control\" id=\"assignee\" required \n                [(ngModel)]=\"model.assignee\" name=\"assignee\" #assignee=\"ngModel\">\n          <option *ngFor=\"let assignee of assignees\" [ngValue]=\"assignee\">{{assignee.name}}</option>\n        </select>\n        <div [hidden]=\"assignee.valid || assignee.pristine\" class=\"alert alert-danger\">\n          Assignee is required\n        </div>\n      </div>\n\n      <button type=\"submit\" class=\"btn btn-success\" [disabled]=\"!orderForm.form.valid\">Submit</button>\n\n      <hr /> \n\n      <div class=\"alert alert-info\" role=\"alert\">\n        <span class=\"glyphicon glyphicon-exclamation-sign\" aria-hidden=\"true\"></span>\n        <span class=\"sr-only\">Message:</span>\n        {{message}}\n      </div>\n    </form>\n    \n</div>\n"
 
 /***/ }),
 
-/***/ 443:
+/***/ 718:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(272);
+module.exports = __webpack_require__(328);
 
 
 /***/ }),
 
-/***/ 58:
+/***/ 82:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fh_js_sdk__ = __webpack_require__(392);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fh_js_sdk__ = __webpack_require__(448);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_fh_js_sdk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_fh_js_sdk__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FHService; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1218,5 +1245,5 @@ FHService = __decorate([
 
 /***/ })
 
-},[443]);
+},[718]);
 //# sourceMappingURL=main.bundle.js.map
