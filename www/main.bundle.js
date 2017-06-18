@@ -166,7 +166,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var cities = ['Madrid', 'Lisbon', 'Paris', 'Munich'];
+var cities = ['Madrid', 'Lisbon', 'Paris', 'Munich', 'Dublin', 'Zurich'];
 var departments = ['Sales', 'Presales', 'Marketing', 'HR', 'Services'];
 var UNIQUE_RESULTS = ['CORRECT', 'WRONG'];
 var depAbrv = {
