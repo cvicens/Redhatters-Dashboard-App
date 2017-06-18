@@ -9,7 +9,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 
 import { FHService } from '../../service/fh.service';
 
-const cities = [ 'Madrid', 'Lisbon', 'Paris', 'Munich', 'Dublin'];
+const cities = [ 'Madrid', 'Lisbon', 'Paris', 'Munich', 'Dublin', 'Zurich'];
 const departments = [ 'Sales', 'Presales', 'Marketing', 'HR', 'Services'];
 
 const UNIQUE_RESULTS = [ 'CORRECT', 'WRONG'];
